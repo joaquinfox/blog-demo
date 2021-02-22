@@ -1,0 +1,15 @@
+<%- include('partials/header') %>
+
+<h1>New</h1>
+
+<form action="/blogs/<%= blog._id %>?_method=PUT" method="POST">
+  <label for="">Title</label>
+  <input type="text" name="blog[title]" value="<%- blog.title %>" />
+  <label for="">Content</label>
+  <textarea id="" cols="30" rows="10" name="blog[content]">
+    <%- blog.content %>
+  </textarea>
+  <label for="">Image</label>
+  <input type="text" name="blog[image]" value="<%- blog.image %>" />
+  <button>Submit</button>
+</form>

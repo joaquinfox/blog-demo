@@ -1,0 +1,11 @@
+<%- include('partials/header') %>
+
+<h1>Index</h1>
+<% blogs.forEach(blog=>{ %>
+<h4><%= blog.title %></h4>
+<img src="<%= blog.image %>" width="200px" alt="" />
+<p>
+  <%= blog.content.substring(0,100) %>
+  <a href="/blogs/<%= blog._id %>">...read more</a>
+</p>
+<% }) %>

@@ -1,0 +1,13 @@
+<%- include('partials/header') %>
+
+<h1>Index</h1>
+
+<h4><%= blog.title %></h4>
+<img src="<%= blog.image %>" width="200px" alt="" />
+<p><%= blog.content %></p>
+<div id="updateAndDelete">
+  <button><a href="/blogs/<%= blog._id %>/edit">Edit</a></button>
+  <form id="delete" action="/blogs/<%= blog._id %>?_method=DELETE" method="GET">
+    <button>Delete</button>
+  </form>
+</div>
