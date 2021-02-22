@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3000;
 const Blog = require('./models/blog');
 const methodOverride = require('method-override');
+const expressSanitizer = require('express-sanitizer');
 
 mongoose.connect('mongodb://localhost/blog_demo', {
   useNewUrlParser: true,
@@ -14,6 +15,8 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(express.json());
+app.use(expressSanitizer());
 
 app.get('/', (req, res) => {
   res.render('landing');
@@ -36,6 +39,7 @@ app.get('/blogs/new', (req, res) => {
 
 // Create
 app.post('/blogs', (req, res) => {
+  //   const sanitizedString = req.sanitize(req.body.blog);
   Blog.create(req.body.blog, (err, blog) => {
     if (err) {
       console.log(err);
@@ -79,6 +83,15 @@ app.put('/blogs/:id', (req, res) => {
 });
 
 // Destroy
+app.delete('/blogs/:id', (req, res) => {
+  Blog.findByIdAndDelete(req.params.id, (err) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+  });
+  res.redirect('/blogs');
+});
 
 app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
